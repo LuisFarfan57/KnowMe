@@ -1,0 +1,14 @@
+.boton {
+    border: 1px solid #707070;
+    border-radius: 36px;
+    opacity: 1;
+    padding: 1rem;
+}
+
+.boton-verde {
+    background: #7ED23E 0% 0% no-repeat padding-box;
+}
+
+.boton-amarillo {
+    background: #FFFF00 0% 0% no-repeat padding-box;
+}
