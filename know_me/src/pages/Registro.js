@@ -1,6 +1,6 @@
 import React from 'react'
 import TituloPagina from '../components/TituloPagina'
-import {TextInput, Label, SelectInput} from '../components/Inputs'
+import {TextInput, Label, SelectInput, FileInput} from '../components/Inputs'
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 
@@ -44,7 +44,7 @@ function Registro(props) {
                 </div>
             </div>
 
-            <form method="post" id="formRegistro">
+            <form method="post" id="formRegistro" enctype="multipart/form-data">
                 <div className="row mt-5">
                     <div className="col-lg-6 col-12">
                         <Label for="nombres" texto="Nombres" />
@@ -57,7 +57,10 @@ function Registro(props) {
                         <TextInput name="username" id="username" clases="mb-3" tipo="text" />
 
                         <Label for="email" texto="Correo electrónico" />
-                        <TextInput name="email" id="email" clases="mb-3" tipo="email" />                        
+                        <TextInput name="email" id="email" clases="mb-3" tipo="email" />
+
+                        <Label for="fotoPerfil" texto="Foto de perfil" />
+                        <FileInput name="fotoPerfil" id="fotoPerfil" />
                     </div>
 
                     <div className="col-lg-6 col-12">
@@ -78,7 +81,7 @@ function Registro(props) {
                         <TextInput name="username" id="username" clases="mb-3" tipo="password" />
                     </div>
                     <div className="col-12 mt-5 d-flex justify-content-center">
-                        <Link to="/inicio">
+                        <Link to="/app/inicio">
                             <Boton color="verde" texto="Registrarse" />
                         </Link>                        
                     </div>

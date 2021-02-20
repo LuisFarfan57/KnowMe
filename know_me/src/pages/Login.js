@@ -15,7 +15,7 @@ function Login(props) {
 
                     <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center mt-3">
 
-                        <Link to="/inicio">
+                        <Link to="/app/inicio">
                             <Boton texto="Iniciar sesión" color="verde" />
                         </Link>
 

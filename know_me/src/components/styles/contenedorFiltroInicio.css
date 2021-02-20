@@ -1,0 +1,12 @@
+.contenedor_filtros_inicio {
+    width: 100%;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    opacity: 1;
+}
+
+@media only screen and (max-width: 992px) {
+    .contenedor_filtros_inicio {
+        display: none;
+    }
+}

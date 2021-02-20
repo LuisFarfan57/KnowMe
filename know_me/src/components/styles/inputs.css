@@ -10,3 +10,12 @@
     outline: none;
     width: 100%;
 }
+
+.fileInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}

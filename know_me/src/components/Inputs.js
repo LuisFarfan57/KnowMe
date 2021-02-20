@@ -3,21 +3,29 @@ import './styles/inputs.css'
 
 function Label(props) {
     return (
-        <label htmlFor={props.for ? props.for : ''}>{props.texto}</label>
+        <label className={props.clases ? props.clases : ''} htmlFor={props.for ? props.for : ''}>{props.texto}</label>
     )
 }
 
 function TextInput(props) {
     return (
-        <div className={`contenedorInput ${props.clases}`}>
-            <input className="textInput" type={props.tipo} name={props.name} id={props.id} placeholder={props.placeholder ? props.placeholder:''} />
+        <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
+            <input valor={props.valor ? props.valor : ''} className="textInput" type={props.tipo} name={props.name} id={props.id} placeholder={props.placeholder ? props.placeholder:''} />
+        </div>
+    )
+}
+
+function TextArea(props) {
+    return (
+        <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
+            <textarea rows={props.rows} className="textInput" name={props.name} id={props.id}>{props.valor ? props.valor : ''}</textarea>
         </div>
     )
 }
 
 function SelectInput(props) {
     return (
-        <div className={`contenedorInput ${props.clases}`}>
+        <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
             <select className="textInput" defaultValue={props.seleccionado} name={props.name} id={props.id}>
                 {props.opciones.map(opcion => {
                     return (<option value={opcion.valor}>{opcion.texto}</option>)
@@ -27,4 +35,10 @@ function SelectInput(props) {
     )
 }
 
-export {TextInput, Label, SelectInput}
+function FileInput(props) {
+    return (
+        <input className="fileInput" type="file" name={props.name} id={props.id} />
+    )
+}
+
+export {TextInput, Label, SelectInput, FileInput, TextArea}
