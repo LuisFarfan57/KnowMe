@@ -10,12 +10,24 @@
     z-index: 1000;
 }
 
-.imagen_usuario {
+.contenedorImagenCircular {
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    height: 5rem;
     width: 5rem;
+}
+
+.imagen_circular {
+    display: inline;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .texto_header {
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .texto_header:hover {

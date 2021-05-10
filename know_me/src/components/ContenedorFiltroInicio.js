@@ -4,90 +4,103 @@ import {Boton} from '../components/Boton'
 
 function ContenedorFiltroInicio(props) {
     const opcionesPaises = [{
-        valor: 'guatemala',
+        valor: '',
+        texto: 'Todos'
+    },
+    {
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }]
 
     const opcionesDepartamentos = [{
-        valor: 'guatemala',
+        valor: '',
+        texto: 'Todos'
+    }, {
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }, {
-        valor: 'sacatepequez',
+        valor: 'Sacatepequez',
         texto: 'Sacatepequez'
     }, {
-        valor: 'peten',
+        valor: 'Petén',
         texto: 'Petén'
     }, {
-        valor: 'jutiapa',
+        valor: 'Jutiapa',
         texto: 'Jutiapa'
     }, {
-        valor: 'jalapa',
+        valor: 'Jalapa',
         texto: 'Jalapa'
     }, {
-        valor: 'alta_verapaz',
+        valor: 'Alta Verapaz',
         texto: 'Alta Verapaz'
     }, {
-        valor: 'baja_verapaz',
+        valor: 'Baja Verapaz',
         texto: 'Baja Verapaz'
     }, {
-        valor: 'suchitepeques',
+        valor: 'Suchitepequez',
         texto: 'Suchitepequez'
     }, {
-        valor: 'quiche',
+        valor: 'Quiché',
         texto: 'Quiché'
     }, {
-        valor: 'huehuetenango',
+        valor: 'Huehuetenango',
         texto: 'Huehuetenango'
     }, {
-        valor: 'san_marcos',
+        valor: 'San Marcos',
         texto: 'San Marcos'
     }, {
-        valor: 'retalhuleu',
+        valor: 'Retalhuleu',
         texto: 'Retalhuleu'
     }, {
-        valor: 'zacapa',
+        valor: 'Zacapa',
         texto: 'Zacapa'
     }, {
-        valor: 'izabal',
+        valor: 'Izabal',
         texto: 'Izabal'
     }, {
-        valor: 'solola',
+        valor: 'Sololá',
         texto: 'Sololá'
     }, {
-        valor: 'escuintla',
+        valor: 'Escuintla',
         texto: 'Escuintla'
     }, {
-        valor: 'santa_rosa',
+        valor: 'Santa Rosa',
         texto: 'Santa Rosa'
     }, {
-        valor: 'el_progreso',
+        valor: 'El Progreso',
         texto: 'El Progreso'
     }, {
-        valor: 'quetzaltenango',
+        valor: 'Quetzaltenango',
         texto: 'Quetzaltenango'
     }, {
-        valor: 'mazatenango',
+        valor: 'Mazatenango',
         texto: 'Mazatenango'
     }, {
-        valor: 'chimaltenango',
+        valor: 'Chimaltenango',
         texto: 'Chimaltenango'
     }, {
-        valor: 'chiquimula',
+        valor: 'Chiquimula',
         texto: 'Chiquimula'
     }]
 
     const opcionesMunicipios = [{
-        valor: 'guatemala',
+        valor: '',
+        texto: 'Todos'
+    }, {
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }, {
-        valor: 'villa_nueva',
+        valor: 'Villa Nueva',
         texto: 'Villa Nueva'
     }, {
-        valor: 'amatitlan',
+        valor: 'Amatilán',
         texto: 'Amatilán'
     }]
 
     const opcionesZonas = [{
+        valor: '',
+        texto: 'Todos'
+    }, {
         valor: '1',
         texto: 'Zona 1'
     }, {
@@ -102,48 +115,52 @@ function ContenedorFiltroInicio(props) {
     }]
 
     const opcionesCategorias = [{
-        valor: 'restaurante',
+        valor: '',
+        texto: 'Todos'
+    }, {
+        valor: 'Restaurante',
         texto: 'Restaurante'
     }, {
-        valor: 'clinica_medica',
+        valor: 'Clínica médica',
         texto: 'Clínica médica'
     }, {
-        valor: 'belleza',
+        valor: 'Belleza',
         texto: 'Belleza'
     }, {
-        valor: 'tienda_general',
+        valor: 'Tienda general',
         texto: 'Tienda general'
     }, {
-        valor: 'entretenimiento',
+        valor: 'Entretenimiento',
         texto: 'Entretenimiento'
     }, {
-        valor: 'arte',
+        valor: 'Arte',
         texto: 'Arte'
     }, {
-        valor: 'laboratorio',
+        valor: 'Laboratorio',
         texto: 'Laboratorio'
     }, {
-        valor: 'educacion',
+        valor: 'Educación',
         texto: 'Educación'
     }, {
-        valor: 'automoviles',
+        valor: 'Automóviles',
         texto: 'Automóviles'
     }, {
-        valor: 'deportes',
+        valor: 'Deportes',
         texto: 'Deportes'
     }]
 
     return (
         <div className="contenedor_filtros_inicio d-flex align-items-center justify-content-between p-3">
             <div className="d-flex align-items-center">
-                <SelectInput name="pais" opciones={opcionesPaises} id="selectPais" clases="mr-3" />
-                <SelectInput name="departamento" opciones={opcionesDepartamentos} id="selectDepartamento" clases="mr-3" />
-                <SelectInput name="municipio" opciones={opcionesMunicipios} id="selectMunicipio" clases="mr-3" />
-                <SelectInput name="zona" opciones={opcionesZonas} id="selectZona" clases="mr-5" />
-                <SelectInput name="categoria" opciones={opcionesCategorias} id="selectCategoria" />
+                <SelectInput onChange={props.recibirPais} name="pais" opciones={opcionesPaises} id="selectPais" clases="mr-3" />
+                <SelectInput onChange={props.recibirDepartamento} name="departamento" opciones={opcionesDepartamentos} id="selectDepartamento" clases="mr-3" />
+                <SelectInput onChange={props.recibirMunicipio} name="municipio" opciones={opcionesMunicipios} id="selectMunicipio" clases="mr-3" />
+                <SelectInput onChange={props.recibirZona} name="zona" opciones={opcionesZonas} id="selectZona" clases="mr-5" />
+                <SelectInput onChange={props.recibirCategoria} name="categoria" opciones={opcionesCategorias} id="selectCategoria" />
             </div>
             <div>
-                <Boton color="amarillo" texto="Buscar" />
+                <Boton onClick={props.buscarTodos} color="amarillo" texto="Todos" />
+                <Boton clases="ml-3" onClick={props.buscar} color="amarillo" texto="Buscar" />
             </div>
         </div>
     )

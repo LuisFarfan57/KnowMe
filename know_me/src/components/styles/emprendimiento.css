@@ -1,0 +1,26 @@
+.contenedor-emprendimiento {
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #00000033;
+}
+
+.contenedor-emprendimiento >.cabecera {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px 2px 5px #00000033;
+    text-align: center;
+    padding: 1rem;
+}
+
+.contenedor-emprendimiento > .cabecera p {
+    color: white;
+    font-weight: bold;
+}
+
+.contenedor-emprendimiento > .contenido-emprendimiento {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.formInput {
+    border: none;
+}

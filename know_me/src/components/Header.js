@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './styles/header.css'
 import imagenUsuario from '../imagenes/user.png'
 import iconoMenu from '../imagenes/icono_menu.png'
@@ -7,22 +7,43 @@ import {Boton} from './Boton'
 
 function Header(props) { 
     const mostrarMenu = () => {
-        if (document.querySelector('#menuResponsive').classList.contains('hide')) document.querySelector('#menuResponsive').classList.remove('hide');
-        else document.querySelector('#menuResponsive').classList.add('hide');
-    }   
+        //if (document.querySelector('#menuResponsive').classList.contains('hide')) document.querySelector('#menuResponsive').classList.remove('hide');
+        //else document.querySelector('#menuResponsive').classList.add('hide');
+    }
+    
+    useEffect(function() {
+        document.querySelector('#nombreUsuario').innerText = sessionStorage.getItem('usuario_nombre') + ' ' + sessionStorage.getItem('usuario_apellido')
+        document.querySelector('#imagenUsuario').setAttribute('src', sessionStorage.getItem('usuario_imagenPerfil') ? sessionStorage.getItem('usuario_imagenPerfil') : imagenUsuario)
+
+    })
+
+    const logout = function() {
+        sessionStorage.removeItem('usuario_id')
+        sessionStorage.removeItem('usuario_nombre')
+        sessionStorage.removeItem('usuario_apellido')
+        sessionStorage.removeItem('usuario_email')
+        sessionStorage.removeItem('usuario_imagenPerfil')
+        sessionStorage.removeItem('usuario_token')
+        sessionStorage.setItem('estaAutenticado', false)
+
+        document.querySelector('#linkIrALogin').click()
+    }
+
     return (
         <header id="header">
             <div className="d-flex align-items-center justify-content-between p-3" id="headerGrande">
                 <div className="d-flex align-items-center">
-                    <img className="imagen_usuario" src={imagenUsuario}></img>
-                    <p className="texto_header mb-0 ml-3">Luis Farfán</p>
+                    <div className="contenedorImagenCircular">
+                        <img className="imagen_circular" id="imagenUsuario"></img>
+                    </div>
+                    <p className="texto_header mb-0 ml-3" id="nombreUsuario"></p>
 
                     <NavLink  to="/app/inicio" className="texto_header mb-0 ml-3" activeClassName="link-activo">Home</NavLink>
                 </div>
                 <div>
                     <NavLink  to="/app/mis-negocios" className="texto_header mb-0 ml-3" activeClassName="link-activo">Mis negocios</NavLink>
                     <NavLink  to="/app/nuevo-negocio" className="texto_header mb-0 ml-3" activeClassName="link-activo">Nuevo negocio</NavLink>
-                    <NavLink  to="/login" className="texto_header mb-0 ml-3" activeClassName="link-activo">Cerrar sesión</NavLink>
+                    <a onClick={logout} className="texto_header mb-0 ml-3" activeclassname="link-activo">Cerrar sesión</a>
                 </div>
             </div>
 
@@ -31,7 +52,9 @@ function Header(props) {
                     <img src={iconoMenu} className="icono_menu"  onClick={mostrarMenu}/>
                 </div>
                 <div>
-                    <img className="imagen_usuario" src={imagenUsuario} />
+                    <div className="contenedorImagenCircular">
+                        <img className="imagen_circular" src={imagenUsuario}></img>
+                    </div>
                 </div>                
             </div>
 
@@ -49,6 +72,7 @@ function Header(props) {
                     <Boton color="rojo" texto="Cerrar sesión" clases="w-100" />
                 </Link>                
             </div>
+            <Link id="linkIrALogin" to="/login"></Link>
         </header>
     )
 }

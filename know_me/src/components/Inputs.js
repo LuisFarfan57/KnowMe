@@ -10,7 +10,7 @@ function Label(props) {
 function TextInput(props) {
     return (
         <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
-            <input valor={props.valor ? props.valor : ''} className="textInput" type={props.tipo} name={props.name} id={props.id} placeholder={props.placeholder ? props.placeholder:''} />
+            <input onChange={props.onChange} defaultValue={props.valor ? props.valor : ''} className="textInput" type={props.tipo} name={props.name} id={props.id} placeholder={props.placeholder ? props.placeholder:''} />
         </div>
     )
 }
@@ -18,7 +18,7 @@ function TextInput(props) {
 function TextArea(props) {
     return (
         <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
-            <textarea rows={props.rows} className="textInput" name={props.name} id={props.id}>{props.valor ? props.valor : ''}</textarea>
+            <textarea defaultValue={props.valor ? props.valor : ''} rows={props.rows} className="textInput" name={props.name} id={props.id} />
         </div>
     )
 }
@@ -26,7 +26,7 @@ function TextArea(props) {
 function SelectInput(props) {
     return (
         <div className={`contenedorInput ${props.clases ? props.clases : ''}`}>
-            <select className="textInput" defaultValue={props.seleccionado} name={props.name} id={props.id}>
+            <select onChange={props.onChange ? props.onChange : function(){}} className="textInput" defaultValue={props.seleccionado} name={props.name} id={props.id}>
                 {props.opciones.map(opcion => {
                     return (<option value={opcion.valor}>{opcion.texto}</option>)
                 })}
@@ -37,7 +37,7 @@ function SelectInput(props) {
 
 function FileInput(props) {
     return (
-        <input className="fileInput" type="file" name={props.name} id={props.id} />
+        <input onChange={props.onChange ? props.onChange : function() {}} className="fileInput" type="file" name={props.name} id={props.id} />
     )
 }
 

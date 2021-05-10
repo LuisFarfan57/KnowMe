@@ -1,91 +1,94 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TituloPagina from '../components/TituloPagina'
 import {TextInput, Label, SelectInput, FileInput, TextArea} from '../components/Inputs'
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
+import ModalSeleccionCategorias from '../components/ModalSeleccionCategorias'
+import axios from 'axios'
 
 function NuevoNegocio(props) {
-    const opcionesPaises = [{
-        valor: 'guatemala',
+    const opcionesPaises = [
+    {
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }]
 
     const opcionesDepartamentos = [{
-        valor: 'guatemala',
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }, {
-        valor: 'sacatepequez',
+        valor: 'Sacatepequez',
         texto: 'Sacatepequez'
     }, {
-        valor: 'peten',
+        valor: 'Petén',
         texto: 'Petén'
     }, {
-        valor: 'jutiapa',
+        valor: 'Jutiapa',
         texto: 'Jutiapa'
     }, {
-        valor: 'jalapa',
+        valor: 'Jalapa',
         texto: 'Jalapa'
     }, {
-        valor: 'alta_verapaz',
+        valor: 'Alta Verapaz',
         texto: 'Alta Verapaz'
     }, {
-        valor: 'baja_verapaz',
+        valor: 'Baja Verapaz',
         texto: 'Baja Verapaz'
     }, {
-        valor: 'suchitepeques',
+        valor: 'Suchitepequez',
         texto: 'Suchitepequez'
     }, {
-        valor: 'quiche',
+        valor: 'Quiché',
         texto: 'Quiché'
     }, {
-        valor: 'huehuetenango',
+        valor: 'Huehuetenango',
         texto: 'Huehuetenango'
     }, {
-        valor: 'san_marcos',
+        valor: 'San Marcos',
         texto: 'San Marcos'
     }, {
-        valor: 'retalhuleu',
+        valor: 'Retalhuleu',
         texto: 'Retalhuleu'
     }, {
-        valor: 'zacapa',
+        valor: 'Zacapa',
         texto: 'Zacapa'
     }, {
-        valor: 'izabal',
+        valor: 'Izabal',
         texto: 'Izabal'
     }, {
-        valor: 'solola',
+        valor: 'Sololá',
         texto: 'Sololá'
     }, {
-        valor: 'escuintla',
+        valor: 'Escuintla',
         texto: 'Escuintla'
     }, {
-        valor: 'santa_rosa',
+        valor: 'Santa Rosa',
         texto: 'Santa Rosa'
     }, {
-        valor: 'el_progreso',
+        valor: 'El Progreso',
         texto: 'El Progreso'
     }, {
-        valor: 'quetzaltenango',
+        valor: 'Quetzaltenango',
         texto: 'Quetzaltenango'
     }, {
-        valor: 'mazatenango',
+        valor: 'Mazatenango',
         texto: 'Mazatenango'
     }, {
-        valor: 'chimaltenango',
+        valor: 'Chimaltenango',
         texto: 'Chimaltenango'
     }, {
-        valor: 'chiquimula',
+        valor: 'Chiquimula',
         texto: 'Chiquimula'
     }]
 
     const opcionesMunicipios = [{
-        valor: 'guatemala',
+        valor: 'Guatemala',
         texto: 'Guatemala'
     }, {
-        valor: 'villa_nueva',
+        valor: 'Villa Nueva',
         texto: 'Villa Nueva'
     }, {
-        valor: 'amatitlan',
+        valor: 'Amatilán',
         texto: 'Amatilán'
     }]
 
@@ -103,6 +106,55 @@ function NuevoNegocio(props) {
         texto: 'Zona 4'
     }]
 
+    const [categorias, agregarCategoria] = useState([])
+    const [idNuevoNegocio, setIdNuevoNegocio] = useState('')
+
+    const verificarCategoria = function(e) {
+        if (e.target.checked === true) agregarCategoria(function(array) {
+            return [...array, e.target.value]
+        })
+        else agregarCategoria(function(array) {
+            const index = array.indexOf(e.target.value)
+            if (index > -1) {
+                array.splice(index, 1);
+            }
+
+            return array
+        })
+    }
+
+    const handleSubmit = async function(e) {
+        e.preventDefault()
+
+        const data = new FormData(document.querySelector('#formNuevoNegocio'))
+
+        const datos = new URLSearchParams()
+        datos.append('nombre', data.get('nombre'))
+        datos.append('descripcion', data.get('descripcion'))
+        datos.append('telefono', data.get('telefono'))
+        datos.append('email', data.get('email'))
+        datos.append('webPage', data.get('paginaWeb'))
+        datos.append('municipio', data.get('municipio'))
+        datos.append('departamento', data.get('departamento'))
+        datos.append('pais', data.get('pais'))
+        datos.append('zona', data.get('zona'))
+        datos.append('categorias', categorias)
+        datos.append('idUsuario', sessionStorage.getItem('usuario_id'))
+
+        const response = await axios.post('http://localhost:3000/api/v1/emprendimiento/nuevo', datos, {
+            headers: {
+              'Authorization': sessionStorage.getItem('usuario_token') 
+            }})
+
+        if(response.data.errorAutorizacion === true) {
+            document.querySelector('#linkNoAutorizado').click()
+            return
+        }
+
+        setIdNuevoNegocio(response.data.emprendimiento._id)
+        document.querySelector('#linkIrANegocio').click()
+    }
+
     return (
         <div className="container pt-5 mt-5 pb-5">
             <div className="row">
@@ -111,11 +163,11 @@ function NuevoNegocio(props) {
                 </div>
             </div>
 
-            <form method="post" id="formRegistro" enctype="multipart/form-data">
+            <form id="formNuevoNegocio" onSubmit={handleSubmit}>
                 <div className="row mt-5">
                     <div className="col-lg-6 col-12">
-                        <Label for="nombreDelNegocio" texto="Nombre del negocio" />
-                        <TextInput name="nombreDelNegocio" id="nombreDelNegocio" clases="mb-3" tipo="text" />
+                        <Label for="nombre" texto="Nombre del negocio" />
+                        <TextInput name="nombre" id="nombre" clases="mb-3" tipo="text" />
 
                         <Label for="descripcion" texto="Descripción" />
                         <TextArea name="descripcion" id="descripcion" clases="mb-3" rows="7" />
@@ -139,23 +191,41 @@ function NuevoNegocio(props) {
                             <SelectInput name="zona" opciones={opcionesZonas} id="selectZona" clases="w-lg-75 w-100" />
                         </div>
 
-                        <Boton color="amarillo" texto="Seleccionar categorías" clases="mt-5" />
-                    </div>
-                    <div className="col-12">
-                        <label for="imagenes" className="boton boton-amarillo">
-                            + Agregar imágenes
-                        </label>
-                        <FileInput name="imagenes" id="imagenes" />
+                        <p className="mt-3">Seleccionar categorías</p>
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-lg-5 col-12 d-flex flex-column">
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Restaurante"></input><span className="ml-2" for="categoria_restaurante">Restaurante</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Entretenimiento"></input><span className="ml-2" for="categoria_restaurante">Entretenimiento</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Automóviles"></input><span className="ml-2" for="categoria_restaurante">Automóviles</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Clínicas médicas"></input><span className="ml-2" for="categoria_restaurante">Clínicas médicas</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Arte"></input><span className="ml-2" for="categoria_restaurante">Arte</span></label>
+                                </div>                            
+                                <div className="col-lg-5 col-12 ml-lg-3 ml-0 mt-lg-0 mt-3 d-flex flex-column">
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Deportes"></input><span className="ml-2" for="categoria_restaurante">Deportes</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Belleza"></input><span className="ml-2" for="categoria_restaurante">Belleza</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Tienda general"></input><span className="ml-2" for="categoria_restaurante">Tienda general</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Educación"></input><span className="ml-2" for="categoria_restaurante">Educación</span></label>
+                                    <label><input onChange={verificarCategoria} type="checkbox" value="Laboratorio"></input><span className="ml-2" for="categoria_restaurante">Laboratorio</span></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-12 mt-5 d-flex justify-content-center">
-                        <Link to="/app/informacion-negocio">
-                            <Boton color="verde" texto="Crear" />
-                        </Link>                        
+                        <Boton tipo="submit" color="verde" texto="Crear" />
                     </div>
                 </div>
-            </form>            
+            </form>
+            <Link id="linkIrANegocio" to={`/app/informacion-negocio/${idNuevoNegocio}`} params={{idEmprendimiento: idNuevoNegocio}}></Link>            
         </div>
     )
 }
 
 export default NuevoNegocio
+
+//<div className="col-12">
+//    <label for="imagenes" className="boton boton-amarillo">
+//        + Agregar imágenes
+//    </label>
+//    <FileInput name="imagenes" id="imagenes" />
+//</div>
