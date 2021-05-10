@@ -291,7 +291,7 @@ function EditarNegocio(props) {
                         </div>
                     </div>
                     <div className="col-12 mt-5 d-flex justify-content-center">
-                        <Boton tipo="submit" color="verde" texto="Crear" />
+                        <Boton tipo="submit" color="verde" texto="Editar" />
                     </div>
                 </div>
             </form>
