@@ -5,6 +5,7 @@ import * as Paginas from '../pages/index'
 function LayoutPublico() {
     return (
         <Switch>
+            <Route exact path="/" component={Paginas.Login} />
             <Route exact path="/login" component={Paginas.Login} />
             <Route exact path="/registro" component={Paginas.Registro} />
         </Switch>
