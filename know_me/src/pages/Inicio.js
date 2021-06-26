@@ -18,7 +18,7 @@ function Inicio(props) {
     }, loading)
 
     const buscarTodos = async function() {
-        const response = await axios.get('http://localhost:3000/api/v1/emprendimiento?noIdUsuario=' + sessionStorage.getItem('usuario_id'), {
+        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento?noIdUsuario=' + sessionStorage.getItem('usuario_id'), {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})
@@ -32,7 +32,7 @@ function Inicio(props) {
     }
 
     const buscar = async function() {
-        const response = await axios.get('http://localhost:3000/api/v1/emprendimiento?noIdUsuario=' + sessionStorage.getItem('usuario_id') + 
+        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento?noIdUsuario=' + sessionStorage.getItem('usuario_id') + 
             '&pais=' + pais +
             '&departamento=' + departamento +
             '&municipio=' + municipio +

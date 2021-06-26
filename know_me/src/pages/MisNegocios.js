@@ -9,7 +9,7 @@ function MisNegocios(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(async function() {
-        const response = await axios.get('http://localhost:3000/api/v1/emprendimiento?idUsuario=' + sessionStorage.getItem('usuario_id'), {
+        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento?idUsuario=' + sessionStorage.getItem('usuario_id'), {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})

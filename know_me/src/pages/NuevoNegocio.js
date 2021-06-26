@@ -141,7 +141,7 @@ function NuevoNegocio(props) {
         datos.append('categorias', categorias)
         datos.append('idUsuario', sessionStorage.getItem('usuario_id'))
 
-        const response = await axios.post('http://localhost:3000/api/v1/emprendimiento/nuevo', datos, {
+        const response = await axios.post('http://localhost:3001/api/v1/emprendimiento/nuevo', datos, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token') 
             }})
