@@ -4,6 +4,7 @@ import {TextInput, Label, SelectInput, FileInput} from '../components/Inputs'
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
@@ -53,7 +54,7 @@ function Registro(props) {
         datos.append('rePassword', data.get('rePassword'))
         datos.append('imagenPerfil', image)
 
-        const response = await axios.post('http://localhost:3000/api/v1/usuario/nuevo', datos)
+        const response = await axios.post('http://' + loadBalancerUrl + ':3000/api/v1/usuario/nuevo', datos)
 
         if(response.data.message) {
             document.getElementById('error').classList.remove('hide')

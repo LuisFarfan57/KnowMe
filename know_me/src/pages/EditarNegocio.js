@@ -5,6 +5,7 @@ import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import ModalSeleccionCategorias from '../components/ModalSeleccionCategorias'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 function EditarNegocio(props) {
     const opcionesPaises = [
@@ -124,7 +125,7 @@ function EditarNegocio(props) {
 
     useEffect(async function() {
         debugger
-        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
+        const response = await axios.get('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})
@@ -221,7 +222,7 @@ function EditarNegocio(props) {
         datos.append('zona', data.get('zona'))
         datos.append('categorias', categoriasSeleccionadas)
 
-        const response = await axios.put('http://localhost:3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, datos, {
+        const response = await axios.put('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, datos, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token') 
             }})

@@ -5,6 +5,7 @@ import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import ModalSeleccionCategorias from '../components/ModalSeleccionCategorias'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 function NuevoNegocio(props) {
     const opcionesPaises = [
@@ -141,7 +142,7 @@ function NuevoNegocio(props) {
         datos.append('categorias', categorias)
         datos.append('idUsuario', sessionStorage.getItem('usuario_id'))
 
-        const response = await axios.post('http://localhost:3001/api/v1/emprendimiento/nuevo', datos, {
+        const response = await axios.post('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/nuevo', datos, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token') 
             }})

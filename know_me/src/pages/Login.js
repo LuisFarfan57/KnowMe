@@ -4,6 +4,7 @@ import {TextInput} from '../components/Inputs'
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 function Login(props) {
     const handleSubmit = async function(e) {
@@ -11,7 +12,7 @@ function Login(props) {
         datos.append('email', document.getElementById('email').value)
         datos.append('password', document.getElementById('password').value)
 
-        const response = await axios.post('http://localhost:3000/api/v1/security/login', datos)
+        const response = await axios.post('http://' + loadBalancerUrl + ':3000/api/v1/security/login', datos)
         debugger
 
         if(response.data.message) document.getElementById('error').classList.remove('hide')

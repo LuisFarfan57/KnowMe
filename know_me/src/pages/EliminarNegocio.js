@@ -4,6 +4,7 @@ import {TextInput, Label, SelectInput, FileInput, TextArea} from '../components/
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 function EliminarNegocio(props) {
     const [ emprendimiento, setEmprendimiento ] = useState(null)
@@ -11,7 +12,7 @@ function EliminarNegocio(props) {
 
     useEffect(async function() {
         debugger
-        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
+        const response = await axios.get('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})
@@ -26,7 +27,7 @@ function EliminarNegocio(props) {
     }, loading)
 
     const eliminarEmprendimiento = async function() {
-        const response = await axios.delete('http://localhost:3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
+        const response = await axios.delete('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})

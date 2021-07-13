@@ -4,6 +4,7 @@ import {TextInput, Label, SelectInput, FileInput, TextArea} from '../components/
 import {Boton} from '../components/Boton'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { loadBalancerUrl } from '../config/config'
 
 function InformacionNegocio(props) {
     const [ emprendimiento, setEmprendimiento ] = useState(null)
@@ -12,7 +13,7 @@ function InformacionNegocio(props) {
 
     useEffect(async function() {
         debugger
-        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
+        const response = await axios.get('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento/' + props.match.params.idEmprendimiento, {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})

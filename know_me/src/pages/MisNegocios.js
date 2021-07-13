@@ -3,13 +3,14 @@ import axios from 'axios'
 import Emprendimiento from '../components/Emprendimiento'
 import ContenedorFiltroInicio from '../components/ContenedorFiltroInicio'
 import TituloPagina from '../components/TituloPagina'
+import { loadBalancerUrl } from '../config/config'
 
 function MisNegocios(props) {
     const [ emprendimientos, setEmprendimientos ] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(async function() {
-        const response = await axios.get('http://localhost:3001/api/v1/emprendimiento?idUsuario=' + sessionStorage.getItem('usuario_id'), {
+        const response = await axios.get('http://' + loadBalancerUrl + ':3001/api/v1/emprendimiento?idUsuario=' + sessionStorage.getItem('usuario_id'), {
             headers: {
               'Authorization': sessionStorage.getItem('usuario_token')
             }})
